@@ -161,18 +161,33 @@ Again while several settings exist, the only one that is required is `format`. P
     ```
     
 # Post-processing
+Far more video editing/creation tools exist than I could ever possibbly hope to cover here. With that beeing said, if you don't already have a video eddting tool you prefer, I'd recommend using [FFmpeg](https://ffmpeg.org/download.html) it's a free yet vary powerfull tool that will run on  Windows, Mac, and Linux. Even though I use a more expensive NLE for regualr video edditing, FFmeg is perfect for tasks such as stitching a bunch of stills together into a video.   
+
+The simplest  way to render a video from a sequence of *gLapse* stills is as follows.
+ - Download a sequence directory to your desktop, and then copy the ffmpeg execuatble into it. 
+ - Open a terminal window inside the sequence directory and run one of the following commands.
+ -  An h.264 encoded video  
+ ```
+ ffmpeg -r 30 -i "%06d.jpeg" -c:v libx264 -preset slow -crf 15 -r 30 -y -v quiet -stats test.mp4
+ ```
+ -  An h.265 encoded video
 ```
-https://ffmpeg.org/download.html
-https://trac.ffmpeg.org/wiki/Encode/H.264
-https://trac.ffmpeg.org/wiki/Encode/H.265
-
-ffmpeg -r 30 -i "%06d.jpeg" -c:v libx264 -preset slow -crf 15 -r 30 -y -v quiet -stats test.mp4
 ffmpeg -r 30 -i "%06d.jpeg" -c:v libx265 -preset slow -crf 15 -r 30 -y -v quiet -stats test.mp4
+```
+- additonal [h.264](https://trac.ffmpeg.org/wiki/Encode/H.264) documentation 
+- additonal [h.265](https://trac.ffmpeg.org/wiki/Encode/H.265) documentation 
 
+#### Hardware Accelerated Rendering
+If you have a modern NVIDEA graphics card, FFmpeg can tap into the [video encoding api](https://developer.nvidia.com/nvidia-video-codec-sdk) to drastically decrease the time required to encode a video.
+ -  An h.264 encoded video  
+ ```
 ffmpeg -r 30 -i "%06d.jpeg" -c:v h264_nvenc -preset slow -profile:v high -level 5.1 -b:v 0 -cq 17 -r 30 -y -v quiet -stats test.mp4
+ ```
+ -  An h.265 encoded video
+```
 ffmpeg -r 30 -i "%06d.jpeg" -c:v hevc_nvenc -preset slow -profile:v main10 -level 6.0 -tier high -b:v 0 -cq 17 -r 30 -y -v quiet -stats test.mp4
 ```
-    
+
 # Licencing
 - [Picamera](https://github.com/waveform80/picamera/blob/master/LICENSE.txt)
 - [Tornado](https://github.com/tornadoweb/tornado/blob/master/LICENSE)
