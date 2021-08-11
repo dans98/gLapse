@@ -157,7 +157,7 @@ Again while several settings exist, the only one that is required is `format`. P
 - [at startup](https://www.dexterindustries.com/howto/run-a-program-on-your-raspberry-pi-at-startup/)
   * An rc.local example!
     ```
-    sudo python3 /home/pi/code/gLapse/main.py & > /home/pi/code/gLapse/log.txt 2>&1
+    sudo python3 /home/pi/code/gLapse/main.py > /home/pi/code/gLapse/log.txt 2>&1 &
     ```
     
 # Post-processing
